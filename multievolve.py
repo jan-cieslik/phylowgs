@@ -220,12 +220,21 @@ def determine_chains_to_merge(chain_dirs,chain_inclusion_factor):
     '''
     logSumLHs = []
     for chain_dir in chain_dirs:
+        print('DEBUG| chain_dir: '+chain_dir)
+        print('DEBUG| os.path.join(chain_dir,\'trees.zip\'): '+os.path.join(chain_dir,'trees.zip'))
         logLHs = []
         tree_zip_file = zipfile.ZipFile(os.path.join(chain_dir,'trees.zip'), mode = 'r')
+        print('DEBUG| tree_zip_file: ')
+        print(tree_zip_file.namelist())
         for tree_name in tree_zip_file.namelist():
+            print('DEBUG| tree_name: '+tree_name)
             if tree_name.startswith("tree"):
                 #the logged likelihood is in the names of the trees, just use that.
+                print('DEBUG| tree_name.split(\'_\'): '+tree_name.split('_'))
+                print('DEBUG| tree_name.split(\'_\')[-1]: '+tree_name.split('_')[-1])
                 logLHs.append(float(tree_name.split('_')[-1]))
+        print('DEBUG| logLHs: ')
+        print(logLHs)
         logSumLHs.append(scipy.misc.logsumexp(logLHs))
 
     # Check below assumes that LLH < 0, which it should always be. We need this

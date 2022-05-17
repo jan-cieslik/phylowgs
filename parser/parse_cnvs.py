@@ -84,7 +84,7 @@ class BattenbergParser(CnvParser):
     self._bb_filename = bb_filename
     self._cellularity = cellularity
     # Used by SMC-Het parser, which has fields shifted by 1.
-    self._field_offset = 0
+    self._field_offset = -1
 
   def _compute_cn(self, cnv1, cnv2):
     '''
